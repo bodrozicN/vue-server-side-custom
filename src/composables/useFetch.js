@@ -1,6 +1,6 @@
-import { inject, onMounted, onServerPrefetch, ref } from 'vue'
+import { inject, ref } from 'vue'
 
-export const useFetch = ({ key, callback }) => {
+export const useFetch = async ({ key, callback }) => {
   const addPreFetchedData = inject('addPreFetchedData')
   const data = ref(null)
 
@@ -9,19 +9,20 @@ export const useFetch = ({ key, callback }) => {
     data.value = res
   }
 
-  onServerPrefetch(async () => {
+  const isServer = import.meta.env.SSR
+
+  if (isServer) {
     await doFetch()
     addPreFetchedData({ key, newVal: data.value })
-  })
-
-  onMounted(async () => {
+  } else {
     const preFetchedData = (window.__INITIAL_STATE__ || {})[key]
     if (preFetchedData) {
       data.value = preFetchedData
-      return
+      window.__INITIAL_STATE__[key] = undefined
+    } else {
+      await doFetch()
     }
-    await doFetch()
-  })
+  }
 
   return {
     data

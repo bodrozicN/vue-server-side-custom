@@ -1,10 +1,10 @@
 <script setup>
-import AboutComponent from '@/components/AboutComponent.vue'
+import CounterComponent from '@/components/CounterComponent.vue'
 </script>
 
 <template>
   <Suspense>
     <template #fallback>Loading</template>
-    <AboutComponent />
+    <CounterComponent />
   </Suspense>
 </template>
