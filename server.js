@@ -60,14 +60,17 @@ export async function createServer(
       const url = req.originalUrl
 
       if (process.env.NODE_ENV === 'production') {
-        const preRenderedPageHtml = fs.readFileSync(`${__dirname}/dist/static${url}/index.html`, {
-          encoding: 'utf-8'
-        })
-
-        if (preRenderedPageHtml) {
-          console.log(preRenderedPageHtml)
-          res.status(200).set({ 'Content-Type': 'text/html' }).end(preRenderedPageHtml)
-          return
+        try {
+          const preRenderedPageHtml = fs.readFileSync(`${__dirname}/dist/static${url}/index.html`, {
+            encoding: 'utf-8'
+          })
+          if (preRenderedPageHtml) {
+            console.log('poslace prerenderovanu stranicu')
+            res.status(200).set({ 'Content-Type': 'text/html' }).end(preRenderedPageHtml)
+            return
+          }
+        } catch (error) {
+          // file did not pre render, generate in runtime
         }
       }
 

@@ -12,6 +12,12 @@
     <li>
       <RouterLink :to="{ name: 'dashboard' }">Dashboard</RouterLink>
     </li>
+    <li>
+      <RouterLink :to="{ name: 'dashboardInfo' }">Dashboard Info</RouterLink>
+    </li>
+    <li>
+      <RouterLink :to="{ name: 'user', params: { userId: 1 } }">User Page</RouterLink>
+    </li>
   </ul>
 </template>
 

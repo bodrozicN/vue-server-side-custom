@@ -20,6 +20,16 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: () => import('../views/dashboard/index.vue')
+  },
+  {
+    path: '/dashboard/info',
+    name: 'dashboardInfo',
+    component: () => import('../views/dashboard/info/index.vue')
+  },
+  {
+    path: '/user/:userId',
+    name: 'user',
+    component: () => import('../views/user/[userId]/index.vue')
   }
 ]
 
