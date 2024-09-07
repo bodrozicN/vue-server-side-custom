@@ -2,7 +2,6 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import express from 'express'
-import { Script } from 'node:vm'
 
 const isTest = process.env.VITEST
 
@@ -59,6 +58,16 @@ export async function createServer(
   app.use('*', async (req, res) => {
     try {
       const url = req.originalUrl
+
+      const preRenderedPageHtml = fs.readFileSync(`${__dirname}/dist/static${url}/index.html`, {
+        encoding: 'utf-8'
+      })
+
+      if (preRenderedPageHtml) {
+        console.log(preRenderedPageHtml)
+        res.status(200).set({ 'Content-Type': 'text/html' }).end(preRenderedPageHtml)
+        return
+      }
 
       let template, render
       if (!isProd) {
