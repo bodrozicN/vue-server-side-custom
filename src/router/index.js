@@ -3,7 +3,8 @@ import { createMemoryHistory, createRouter as _createRouter, createWebHistory } 
 const routes = [
   {
     path: '/',
-    component: () => import('../views/index.vue')
+    component: () => import('../views/index.vue'),
+    name: 'home'
   },
   {
     path: '/about',
@@ -14,6 +15,11 @@ const routes = [
     path: '/settings/privacy',
     name: 'privacy',
     component: () => import('../views/settings/privacy/index.vue')
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('../views/dashboard/index.vue')
   }
 ]
 

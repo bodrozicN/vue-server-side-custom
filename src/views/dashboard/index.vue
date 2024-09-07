@@ -4,5 +4,5 @@ import NavBar from '@/components/navBar.vue'
 
 <template>
   <NavBar />
-  <div>Privacy Page</div>
+  <div>Dashboard page</div>
 </template>
