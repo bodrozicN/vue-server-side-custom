@@ -59,14 +59,16 @@ export async function createServer(
     try {
       const url = req.originalUrl
 
-      const preRenderedPageHtml = fs.readFileSync(`${__dirname}/dist/static${url}/index.html`, {
-        encoding: 'utf-8'
-      })
+      if (process.env.NODE_ENV === 'production') {
+        const preRenderedPageHtml = fs.readFileSync(`${__dirname}/dist/static${url}/index.html`, {
+          encoding: 'utf-8'
+        })
 
-      if (preRenderedPageHtml) {
-        console.log(preRenderedPageHtml)
-        res.status(200).set({ 'Content-Type': 'text/html' }).end(preRenderedPageHtml)
-        return
+        if (preRenderedPageHtml) {
+          console.log(preRenderedPageHtml)
+          res.status(200).set({ 'Content-Type': 'text/html' }).end(preRenderedPageHtml)
+          return
+        }
       }
 
       let template, render
